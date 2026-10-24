@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Kalau belum login, lempar ke halaman login
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -15,6 +24,7 @@
   <nav>
     <a href="#inventaris">Inventaris</a>
     <a href="#tambah-barang">Tambah Barang</a>
+    <a href="logout.php">Logout (<?= htmlspecialchars($_SESSION["user"]) ?>)</a>
   </nav>
 
   <main>

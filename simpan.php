@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit;
+}
+
+require_once 'Barang.php';
+
 // Fungsi menghitung total estimasi nilai aset
 function hitungTotal($jumlah, $harga) {
     return $jumlah * $harga;
@@ -6,7 +14,7 @@ function hitungTotal($jumlah, $harga) {
 
 // Pastikan halaman dibuka lewat pengiriman form (POST)
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: index.html");
+    header("Location: index.php");
     exit;
 }
 
@@ -20,6 +28,7 @@ $harga    = (int) $_POST["harga"];
 
 // Hitung total
 $total = hitungTotal($jumlah, $harga);
+$barang = new Barang($kode, $nama, $jumlah);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -64,7 +73,8 @@ $total = hitungTotal($jumlah, $harga);
           </tbody>
         </table>
       </div>
-      <p><a href="index.html">&laquo; Kembali ke daftar</a></p>
+      <p><strong>Info Barang (OOP):</strong> <?= $barang->tampilInfo() ?></p>
+      <p><a href="index.php">&laquo; Kembali ke daftar</a></p>
     </section>
   </main>
 </body>
