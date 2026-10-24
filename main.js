@@ -1,44 +1,79 @@
-const form = document.querySelector("form");
+// ===== Ambil elemen =====
+const form = document.getElementById('form-barang');
+const inputKode = document.getElementById('kode');
+const inputJumlah = document.getElementById('jumlah');
+const inputHarga = document.getElementById('harga');
+const pesanError = document.getElementById('pesan-error');
+const inputCari = document.getElementById('cari');
+const tabelBody = document.querySelector('#inventaris tbody');
+const toast = document.getElementById('toast');
 
-form.addEventListener("submit", function (e) {
-  const kode = document.getElementById("kode").value.trim();
-  const jumlah = Number(document.getElementById("jumlah").value);
+// ===== Validasi saat form di-submit =====
+form.addEventListener('submit', function (event) {
+  const kode = inputKode.value.trim();
+  const jumlah = Number(inputJumlah.value);
+  const harga = Number(inputHarga.value);
 
-  // Validasi kode: harus BRG- diikuti angka
+  // Aturan 1: kode harus "BRG-" diikuti angka
   if (!/^BRG-\d+$/.test(kode)) {
-    e.preventDefault();
-    alert("Kode barang harus diawali BRG- diikuti angka, contoh: BRG-001");
+    event.preventDefault(); // batalkan kirim HANYA kalau salah
+    tampilkanError('Kode barang harus diawali "BRG-" diikuti angka, contoh: BRG-006.');
+    inputKode.focus();
     return;
   }
 
-  // Validasi jumlah: harus angka lebih dari 0
+  // Aturan 2: jumlah harus angka positif (> 0)
   if (isNaN(jumlah) || jumlah <= 0) {
-    e.preventDefault();
-    alert("Jumlah barang harus berupa angka lebih dari 0");
+    event.preventDefault();
+    tampilkanError('Jumlah barang harus berupa angka lebih dari 0.');
+    inputJumlah.focus();
     return;
   }
-  // Lolos validasi: tampilkan toast
-  e.preventDefault();   // sementara, supaya halaman tidak pindah
-  const toast = document.getElementById("toast");
-  toast.classList.add("tampil");
-  setTimeout(function () {
-    toast.classList.remove("tampil");
-  }, 3000);
+
+  // Harga tidak boleh negatif
+  if (isNaN(harga) || harga < 0) {
+    event.preventDefault();
+    tampilkanError('Harga satuan tidak boleh negatif.');
+    inputHarga.focus();
+    return;
+  }
+
+  // Lolos validasi: form dikirim ke simpan.php
+  sembunyikanError();
+  sessionStorage.setItem('berhasil', '1'); // penanda untuk toast
 });
-// ===== FITUR PENCARIAN =====
-const inputCari = document.getElementById("cari");
-const barisTabel = document.querySelectorAll("tbody tr");
 
-inputCari.addEventListener("input", function () {
+function tampilkanError(teks) {
+  pesanError.textContent = teks;
+  pesanError.hidden = false;
+}
+
+function sembunyikanError() {
+  pesanError.textContent = '';
+  pesanError.hidden = true;
+}
+
+// ===== Fitur 1: pencarian tabel real-time =====
+inputCari.addEventListener('input', function () {
   const kataKunci = inputCari.value.toLowerCase();
-
-  barisTabel.forEach(function (baris) {
-    const teksBaris = baris.textContent.toLowerCase();
-
-    if (teksBaris.includes(kataKunci)) {
-      baris.style.display = "";      // tampilkan
-    } else {
-      baris.style.display = "none";  // sembunyikan
-    }
+  tabelBody.querySelectorAll('tr').forEach(function (tr) {
+    const teks = tr.textContent.toLowerCase();
+    tr.style.display = teks.includes(kataKunci) ? '' : 'none';
   });
 });
+
+// ===== Fitur 2: toast notifikasi =====
+function tampilkanToast(pesan) {
+  toast.textContent = pesan;
+  toast.classList.add('tampil');
+  setTimeout(function () {
+    toast.classList.remove('tampil');
+  }, 3000);
+}
+
+// Toast saat form lolos validasi: tampil di halaman ringkasan lewat index
+// (jika kembali ke index.html setelah simpan)
+if (sessionStorage.getItem('berhasil')) {
+  sessionStorage.removeItem('berhasil');
+  tampilkanToast('Data berhasil divalidasi dan dikirim!');
+}

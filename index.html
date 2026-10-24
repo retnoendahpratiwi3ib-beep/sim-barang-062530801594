@@ -7,96 +7,116 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
     <h1>SIM-Barang</h1>
-    <p>Sistem Pengelolaan Inventaris Barang Jurusan</p>
+    <p>Sistem Informasi Pengelolaan Inventaris Barang Jurusan</p>
   </header>
 
   <nav>
-    <ul>
-      <li><a href="#inventaris">Inventaris</a></li>
-      <li><a href="#form-input">Tambah Barang</a></li>
-    </ul>
+    <a href="#inventaris">Inventaris</a>
+    <a href="#tambah-barang">Tambah Barang</a>
   </nav>
 
   <main>
     <section id="inventaris">
-      <h2>Tabel Inventaris Barang</h2>
-      <input type="text" id="cari" placeholder="Cari barang (kode, nama, kategori)...">
-      <table>
-        <thead>
-          <tr>
-            <th>Kode</th>
-            <th>Nama Barang</th>
-            <th>Kategori</th>
-            <th>Jumlah</th>
-            <th>Kondisi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>BRG-001</td>
-            <td>Casio G-Shock</td>
-            <td>Digital</td>
-            <td>20</td>
-            <td>Baik</td>
-          </tr>
-          <tr>
-            <td>BRG-002</td>
-            <td>Seiko 5 Sports</td>
-            <td>Analog</td>
-            <td>12</td>
-            <td>Baik</td>
-          </tr>
-          <tr>
-            <td>BRG-003</td>
-            <td>Fossil Gen 6</td>
-            <td>Smartwatch</td>
-            <td>8</td>
-            <td>Rusak Ringan</td>
-          </tr>
-          <tr>
-            <td>BRG-004</td>
-            <td>Rolex Submariner</td>
-            <td>Analog</td>
-            <td>2</td>
-            <td>Baik</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Inventaris Barang</h2>
+      <input type="text" id="cari" aria-label="Cari barang" placeholder="Cari barang (kode, nama, kategori)...">
+      <div class="tabel-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Kode</th>
+              <th>Nama Barang</th>
+              <th>Kategori</th>
+              <th>Jumlah</th>
+              <th>Kondisi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BRG-001</td>
+              <td>Casio G-Shock</td>
+              <td>Digital</td>
+              <td>20</td>
+              <td>Baik</td>
+            </tr>
+            <tr>
+              <td>BRG-002</td>
+              <td>Seiko 5 Sports</td>
+              <td>Analog</td>
+              <td>12</td>
+              <td>Baik</td>
+            </tr>
+            <tr>
+              <td>BRG-003</td>
+              <td>Fossil Gen 6</td>
+              <td>Smartwatch</td>
+              <td>8</td>
+              <td>Rusak Ringan</td>
+            </tr>
+            <tr>
+              <td>BRG-004</td>
+              <td>Citizen Eco-Drive</td>
+              <td>Analog</td>
+              <td>10</td>
+              <td>Baik</td>
+            </tr>
+            <tr>
+              <td>BRG-005</td>
+              <td>Garmin Forerunner</td>
+              <td>Smartwatch</td>
+              <td>6</td>
+              <td>Baik</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <section id="form-input">
-      <h2>Formulir Input Barang</h2>
-      <form action="#" method="post">
-        <label for="kode">Kode Barang</label>
-        <input type="text" id="kode" name="kode" placeholder="Contoh: BRG-005" required>
+    <section id="tambah-barang">
+      <h2>Tambah Barang</h2>
+      <form id="form-barang" action="simpan.php" method="post">
+        <div>
+          <label for="kode">Kode Barang</label>
+          <input type="text" id="kode" name="kode" placeholder="Contoh: BRG-006" required>
+        </div>
 
-        <label for="nama">Nama Barang</label>
-        <input type="text" id="nama" name="nama" placeholder="Contoh: Casio G-Shock" required>
+        <div>
+          <label for="nama">Nama Barang</label>
+          <input type="text" id="nama" name="nama" placeholder="Contoh: Casio G-Shock" required>
+        </div>
 
-        <label for="kategori">Kategori</label>
-        <select id="kategori" name="kategori" required>
-          <option value="">-- Pilih Kategori --</option>
-          <option value="Analog">Analog</option>
-          <option value="Digital">Digital</option>
-          <option value="Smartwatch">Smartwatch</option>
-        </select>
+        <div>
+          <label for="kategori">Kategori</label>
+          <select id="kategori" name="kategori" required>
+            <option value="">-- Pilih Kategori --</option>
+            <option value="Analog">Analog</option>
+            <option value="Digital">Digital</option>
+            <option value="Smartwatch">Smartwatch</option>
+          </select>
+        </div>
 
-        <label for="jumlah">Jumlah</label>
-        <input type="number" id="jumlah" name="jumlah" placeholder="0" required>
+        <div>
+          <label for="jumlah">Jumlah</label>
+          <input type="number" id="jumlah" name="jumlah" placeholder="Contoh: 5" required>
+        </div>
 
-        <label for="harga">Harga Satuan (Rp)</label>
-        <input type="number" id="harga" name="harga" placeholder="0" required>
+        <div>
+          <label for="kondisi">Kondisi</label>
+          <select id="kondisi" name="kondisi" required>
+            <option value="">-- Pilih Kondisi --</option>
+            <option value="Baik">Baik</option>
+            <option value="Rusak Ringan">Rusak Ringan</option>
+            <option value="Rusak Berat">Rusak Berat</option>
+          </select>
+        </div>
 
-        <label for="kondisi">Kondisi</label>
-        <select id="kondisi" name="kondisi" required>
-          <option value="">-- Pilih Kondisi --</option>
-          <option value="Baik">Baik</option>
-          <option value="Rusak Ringan">Rusak Ringan</option>
-          <option value="Rusak Berat">Rusak Berat</option>
-        </select>
+        <div>
+          <label for="harga">Harga Satuan (Rp)</label>
+          <input type="number" id="harga" name="harga" placeholder="Contoh: 1500000" required>
+        </div>
+
+        <p id="pesan-error" class="error" hidden></p>
 
         <button type="submit">Simpan</button>
       </form>
@@ -104,10 +124,10 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 SIM-Barang - [Retno Endah Pratiwi], [062530801594]</p>
+    <p>&copy; 2026 SIM-Barang - Retno Endah Pratiwi, 062530801594</p>
   </footer>
-  <div id="toast">Data berhasil divalidasi!</div>
-  <script src="main.js"></script>
 
+  <div id="toast" role="status"></div>
+  <script src="main.js"></script>
 </body>
 </html>
