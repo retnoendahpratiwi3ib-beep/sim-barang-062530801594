@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIM-Barang</title>
+</head>
+<body>
+
+  <header>
+    <h1>SIM-Barang</h1>
+    <p>Sistem Pengelolaan Inventaris Barang Jurusan</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#inventaris">Inventaris</a></li>
+      <li><a href="#form-input">Tambah Barang</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="inventaris">
+      <h2>Tabel Inventaris Barang</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Nama Barang</th>
+            <th>Kategori</th>
+            <th>Jumlah</th>
+            <th>Kondisi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BRG-001</td>
+            <td>Casio G-Shock</td>
+            <td>Digital</td>
+            <td>20</td>
+            <td>Baik</td>
+          </tr>
+          <tr>
+            <td>BRG-002</td>
+            <td>Seiko 5 Sports</td>
+            <td>Analog</td>
+            <td>12</td>
+            <td>Baik</td>
+          </tr>
+          <tr>
+            <td>BRG-003</td>
+            <td>Fossil Gen 6</td>
+            <td>Smartwatch</td>
+            <td>8</td>
+            <td>Rusak Ringan</td>
+          </tr>
+          <tr>
+            <td>BRG-004</td>
+            <td>Rolex Submariner</td>
+            <td>Analog</td>
+            <td>2</td>
+            <td>Baik</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="form-input">
+      <h2>Formulir Input Barang</h2>
+      <form action="#" method="post">
+        <label for="kode">Kode Barang</label>
+        <input type="text" id="kode" name="kode" placeholder="Contoh: BRG-005" required>
+
+        <label for="nama">Nama Barang</label>
+        <input type="text" id="nama" name="nama" placeholder="Contoh: Casio G-Shock" required>
+
+        <label for="kategori">Kategori</label>
+        <select id="kategori" name="kategori" required>
+          <option value="">-- Pilih Kategori --</option>
+          <option value="Analog">Analog</option>
+          <option value="Digital">Digital</option>
+          <option value="Smartwatch">Smartwatch</option>
+        </select>
+
+        <label for="jumlah">Jumlah</label>
+        <input type="number" id="jumlah" name="jumlah" placeholder="0" required>
+
+        <label for="harga">Harga Satuan (Rp)</label>
+        <input type="number" id="harga" name="harga" placeholder="0" required>
+
+        <label for="kondisi">Kondisi</label>
+        <select id="kondisi" name="kondisi" required>
+          <option value="">-- Pilih Kondisi --</option>
+          <option value="Baik">Baik</option>
+          <option value="Rusak Ringan">Rusak Ringan</option>
+          <option value="Rusak Berat">Rusak Berat</option>
+        </select>
+
+        <button type="submit">Simpan</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 SIM-Barang - [Retno Endah Pratiwi], [062530801594]</p>
+  </footer>
+
+</body>
+</html>
