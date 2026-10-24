@@ -6,6 +6,14 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
     exit;
 }
+
+require 'koneksi.php';
+
+$sql = "SELECT barang.*, kategori.nama_kategori
+        FROM barang
+        JOIN kategori ON barang.kategori_id = kategori.id
+        ORDER BY barang.id";
+$daftar = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -43,41 +51,15 @@ if (!isset($_SESSION["user"])) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>BRG-001</td>
-              <td>Casio G-Shock</td>
-              <td>Digital</td>
-              <td>20</td>
-              <td>Baik</td>
-            </tr>
-            <tr>
-              <td>BRG-002</td>
-              <td>Seiko 5 Sports</td>
-              <td>Analog</td>
-              <td>12</td>
-              <td>Baik</td>
-            </tr>
-            <tr>
-              <td>BRG-003</td>
-              <td>Fossil Gen 6</td>
-              <td>Smartwatch</td>
-              <td>8</td>
-              <td>Rusak Ringan</td>
-            </tr>
-            <tr>
-              <td>BRG-004</td>
-              <td>Citizen Eco-Drive</td>
-              <td>Analog</td>
-              <td>10</td>
-              <td>Baik</td>
-            </tr>
-            <tr>
-              <td>BRG-005</td>
-              <td>Garmin Forerunner</td>
-              <td>Smartwatch</td>
-              <td>6</td>
-              <td>Baik</td>
-            </tr>
+            <?php foreach ($daftar as $b): ?>
+              <tr>
+                <td><?= htmlspecialchars($b['kode']) ?></td>
+                <td><?= htmlspecialchars($b['nama']) ?></td>
+                <td><?= htmlspecialchars($b['nama_kategori']) ?></td>
+                <td><?= (int) $b['jumlah'] ?></td>
+                <td><?= htmlspecialchars($b['kondisi']) ?></td>
+              </tr>
+            <?php endforeach; ?>
           </tbody>
         </table>
       </div>
